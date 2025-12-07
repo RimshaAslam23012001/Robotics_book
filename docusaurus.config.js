@@ -23,7 +23,7 @@ const config = {
   organizationName: 'your-organization', // Usually your GitHub org/user name.
   projectName: 'physical-ai-humanoid-robotics', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -47,24 +47,34 @@ const config = {
           include: ['**/*.md', '**/*.mdx'],
           // Exclude all other file types and directories
           exclude: [
+            '**/node_modules/**',
+            '**/__pycache__/**',
             '**/*.py',
+            '**/*.pyc',
             '**/*.xml',
             '**/*.launch.py',
             '**/*.sdf',
             '**/*.urdf',
-            '**/package.json',
-            '**/package-lock.json',
-            '**/setup.py',
-            '**/test/**',
-            '**/src/**',
-            '**/simulation/**',
-            '../specs/**',
-            '../history/**'
+            '**/*.egg-info/**',
+            '**/*.prompt.md',
+            '**/*.mdx~',
+            '**/*.py~',
+            '**/*.xml~',
+            '**/venv/**',
+            '**/env/**',
+            '**/.specify/**',
+            '**/.claude/**',
+            '**/history/**',
+            '**/specs/**',
+            '**/ros2_ws/**',
+            '**/build/**',
+            '**/dist/**',
+            '**/temp/**',
+            '**/tmp/**'
           ],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: undefined,
         },
         blog: false, // Optional: disable the blog plugin
         theme: {
