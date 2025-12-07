@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Book cover -->
+  <rect x="15" y="20" width="70" height="60" rx="5" ry="5" fill="#1976d2" stroke="#0d47a1" stroke-width="2"/>
+
+  <!-- Book spine -->
+  <rect x="10" y="20" width="10" height="60" rx="2" ry="2" fill="#0d47a1" stroke="#0d47a1" stroke-width="1"/>
+
+  <!-- Book pages -->
+  <path d="M20 25 L80 25 L75 30 L25 30 Z" fill="#fff" opacity="0.8"/>
+  <path d="M20 35 L80 35 L75 40 L25 40 Z" fill="#fff" opacity="0.8"/>
+  <path d="M20 45 L80 45 L75 50 L25 50 Z" fill="#fff" opacity="0.8"/>
+  <path d="M20 55 L80 55 L75 60 L25 60 Z" fill="#fff" opacity="0.8"/>
+  <path d="M20 65 L80 65 L75 70 L25 70 Z" fill="#fff" opacity="0.8"/>
+
+  <!-- Book title/embellishment -->
+  <text x="50" y="55" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="bold">AI</text>
+  <text x="50" y="68" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">ROBOTICS</text>
+</svg>

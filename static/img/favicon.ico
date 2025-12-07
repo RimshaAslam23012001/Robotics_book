@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Simplified book icon for favicon -->
+  <rect x="20" y="25" width="60" height="50" rx="3" ry="3" fill="#1976d2"/>
+  <path d="M25 30 L75 30 L70 35 L30 35 Z" fill="#fff" opacity="0.9"/>
+  <path d="M25 40 L75 40 L70 45 L30 45 Z" fill="#fff" opacity="0.9"/>
+  <path d="M25 50 L75 50 L70 55 L30 55 Z" fill="#fff" opacity="0.9"/>
+  <path d="M25 60 L75 60 L70 65 L30 65 Z" fill="#fff" opacity="0.9"/>
+</svg>

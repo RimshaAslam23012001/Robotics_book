@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-ChildItem ''E:\\Book\\specs\\2-robotics-ai-modules\\research.md'' -ErrorAction SilentlyContinue\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
