@@ -4,9 +4,10 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npx docusaurus build",
+        "buildCommand": "npm run build",
         "outputDirectory": "build"
       }
     }
-  ]
+  ],
+  "outputDirectory": "build"
 }
