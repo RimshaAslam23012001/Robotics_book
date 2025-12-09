@@ -129,6 +129,10 @@ const config = {
     },
   }),
 
+  plugins: [
+    './src/plugins/exclude-files-plugin.js'
+  ],
+
 };
 
 export default config;
