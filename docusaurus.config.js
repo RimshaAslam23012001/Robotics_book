@@ -61,14 +61,18 @@ const config = {
             '**/temp/**',
             '**/tmp/**',
             '**/vercel-deploy/**',
-            '**/temp_dirs/**'
+            '**/temp_dirs/**',
+            '**/simulation/**'
           ],
 
           editUrl: undefined,
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: './frontend_book/src/css/custom.css',
+        },
+        pages: {
+          path: './frontend_book/src/pages',
         },
       }),
     ],
@@ -79,49 +83,67 @@ const config = {
     navbar: {
       title: 'Physical AI & Humanoid Robotics',
       logo: {
-        alt: 'Robotics Book Logo',
-        src: 'img/logo.svg',
+        alt: 'Physical AI & Humanoid Robotics Logo',
+        src: 'img/OIP.jpeg',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Book',
+          label: ' BOOK',
         },
         {
           href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          label: ' GITHUB',
           position: 'right',
         },
       ],
+      style: 'dark',
     },
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Modules',
+          title: ' GETTING STARTED',
           items: [
             {
-              label: 'Module 1: Robot Communication',
-              to: '/docs/module-1/communication-architecture',
+              label: 'Introduction',
+              to: '/intro',
             },
             {
-              label: 'Module 2: Virtual Environment',
-              to: '/docs/module-2/virtual-environment',
+              label: ' Quickstart',
+              to: '/quickstart',
             },
             {
-              label: 'Module 3: Perception & Navigation',
-              to: '/docs/module-3/perception-navigation',
+              label: ' About',
+              to: '/about',
+            },
+          ],
+        },
+        {
+          title: ' CORE MODULES',
+          items: [
+            {
+              label: ' Module 1: Communication',
+              to: '/module-1/communication-architecture',
             },
             {
-              label: 'Module 4: VLA System',
-              to: '/docs/module-4/vla-system',
+              label: ' Module 2: Environment',
+              to: '/module-2/virtual-environment',
+            },
+            {
+              label: ' Module 3: Navigation',
+              to: '/module-3/perception-navigation',
+            },
+            {
+              label: ' Module 4: VLA System',
+              to: '/module-4/vla-system',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Book. Built with Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Physical AI & Humanoid Robotics`,
     },
     prism: {
       theme: prismThemes.github,
@@ -130,7 +152,7 @@ const config = {
   }),
 
   plugins: [
-    './src/plugins/exclude-files-plugin.js'
+    './frontend_book/src/plugins/exclude-files-plugin.js'
   ],
 
 };

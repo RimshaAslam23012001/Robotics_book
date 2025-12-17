@@ -1,0 +1,197 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/* You can override the default Docusaurus styling with your own custom styles here */
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  background: radial-gradient(circle at top, #020617, #000) !important;
+  color: #e5f2ff;
+}
+
+/* Cyberpunk-themed navbar */
+.navbar {
+  background: radial-gradient(circle at top, #020617, #000) !important;
+  border-bottom: 1px solid rgba(0,255,255,0.3) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(0,255,255,0.1);
+}
+
+.navbar__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar__brand {
+  color: #00ffe0 !important;
+  text-shadow: 0 0 20px rgba(0,255,255,0.4);
+  font-weight: 700;
+}
+
+.navbar__brand:hover {
+  color: #00b3ff !important;
+}
+
+.navbar__link {
+  color: #e5f2ff !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffe0, #00b3ff);
+  transition: width 0.3s ease;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+.navbar__link:hover {
+  color: #00ffe0 !important;
+  text-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+.navbar__item {
+  margin: 0 1rem;
+}
+
+/* Cyberpunk-themed footer */
+.footer {
+  background: radial-gradient(circle at bottom, #020617, #000) !important;
+  border-top: 1px solid rgba(0,255,255,0.3) !important;
+  backdrop-filter: blur(10px);
+  color: #e5f2ff;
+}
+
+.footer__title {
+  color: #00ffe0 !important;
+  text-shadow: 0 0 15px rgba(0,255,255,0.3);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.footer__link-item {
+  color: #e5f2ff !important;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.footer__link-item::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: #00ffe0;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.footer__link-item:hover {
+  color: #00ffe0 !important;
+  text-shadow: 0 0 10px rgba(0,255,255,0.3);
+  transform: translateX(5px);
+}
+
+.footer__link-item:hover::before {
+  color: #00b3ff;
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.footer__links {
+  padding: 3rem 0;
+}
+
+.footer__copyright {
+  color: #9ccfff;
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(0,255,255,0.1);
+  margin-top: 2rem;
+}
+
+/* Highlighted text for cyberpunk theme */
+.hero__title {
+  color: #00ffe0 !important;
+  text-shadow: 0 0 25px rgba(0,255,255,0.4) !important;
+}
+
+.hero__subtitle {
+  color: #9ccfff !important;
+}
+
+/* Buttons with cyberpunk styling */
+.button {
+  background: linear-gradient(135deg, #00ffe0, #00b3ff) !important;
+  color: #020617 !important;
+  border: none !important;
+  padding: 0.8rem 1.5rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2) !important;
+}
+
+.button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 25px rgba(0,255,255,0.4) !important;
+  color: #020617 !important;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive improvements for cyberpunk theme */
+@media (max-width: 768px) {
+  .navbar__items--center {
+    min-width: auto;
+  }
+
+  .navbar__item {
+    margin: 0 0.5rem;
+  }
+
+  .footer__links {
+    padding: 2rem 0;
+  }
+
+  .footer__title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-sidebar__brand {
+    padding: 1rem;
+  }
+
+  .footer__links .col {
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__copyright {
+    font-size: 0.8rem;
+    padding: 1rem 0;
+  }
+}
+
+/* Add any additional custom styles here */
