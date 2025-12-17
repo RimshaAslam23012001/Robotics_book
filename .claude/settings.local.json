@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"Get-ChildItem ''E:\\Book\\specs\\2-robotics-ai-modules\\research.md'' -ErrorAction SilentlyContinue\")"
+      "Bash(powershell -Command \"Get-ChildItem ''E:\\Book\\specs\\2-robotics-ai-modules\\research.md'' -ErrorAction SilentlyContinue\")",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(source .venv/Scripts/activate)",
+      "Bash(uv run python main.py)",
+      "Bash(python -c \"\nimport os\n# Set minimal environment for testing\nos.environ[''COHERE_API_KEY''] = ''test-key''\nos.environ[''QDRANT_URL''] = ''http://localhost:6333''\nfrom main import DocusaurusEmbeddingPipeline\nprint(''Module imported successfully'')\n# Test the text chunking functionality\npipeline = DocusaurusEmbeddingPipeline.__new__(DocusaurusEmbeddingPipeline)  # Create instance without calling __init__\ntext = ''This is a test sentence. Here is another sentence! And a third one? Yes, indeed.''\nchunks = pipeline.chunk_text(text, chunk_size=30, overlap=5)\nprint(f''Chunked {len(text)} chars into {len(chunks)} chunks'')\nfor i, chunk in enumerate(chunks):\n    print(f''Chunk {i}: {len(chunk[\"\"content\"\"])} chars - {chunk[\"\"content\"\"][:50]}...'')\n\")",
+      "Bash(git add .)"
     ],
     "deny": [],
     "ask": []
