@@ -1,10 +1,9 @@
 """
 Docusaurus Embedding Pipeline
-Extract text from deployed Docusaurus URLs, generate embeddings using Cohere, and store them in Qdrant.
+Extract text from deployed Docusaurus URLs, generate embeddings using Cohere or Hugging Face, and store them in Qdrant.
 """
 import os
 import requests
-import cohere
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 from bs4 import BeautifulSoup
@@ -18,6 +17,9 @@ import logging
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 import argparse
+
+# Import the new embedding service
+from src.rag_retrieval.embedding_service import EmbeddingService
 
 
 # Load environment variables
@@ -42,13 +44,16 @@ class DocumentContent:
 
 
 class DocusaurusEmbeddingPipeline:
-    def __init__(self):
-        # Initialize clients
-        cohere_api_key = os.getenv('COHERE_API_KEY')
-        if not cohere_api_key:
-            raise ValueError("COHERE_API_KEY environment variable is required")
+    def __init__(self, embedding_provider: str = "cohere", hf_model_name: str = None):
+        # Initialize embedding service
+        self.embedding_provider = embedding_provider.lower()
+        cohere_api_key = os.getenv('COHERE_API_KEY') if self.embedding_provider == "cohere" else None
 
-        self.cohere_client = cohere.Client(cohere_api_key)
+        self.embedding_service = EmbeddingService(
+            provider=self.embedding_provider,
+            api_key=cohere_api_key,
+            model_name=hf_model_name
+        )
 
         qdrant_url = os.getenv('QDRANT_URL', 'http://localhost:6333')
         qdrant_api_key = os.getenv('QDRANT_API_KEY')
@@ -58,7 +63,7 @@ class DocusaurusEmbeddingPipeline:
         else:
             self.qdrant_client = QdrantClient(url=qdrant_url)
 
-        logger.info("Pipeline initialized successfully")
+        logger.info(f"Pipeline initialized successfully with {self.embedding_provider} embedding provider")
 
     def get_all_urls(self, base_url: str) -> List[str]:
         """
@@ -234,43 +239,21 @@ class DocusaurusEmbeddingPipeline:
 
     def embed(self, texts: List[str]) -> List[List[float]]:
         """
-        Generate embeddings for a list of text chunks using Cohere
-        Handles rate limiting with retry logic and processes in batches
+        Generate embeddings for a list of text chunks using either Cohere or Hugging Face
         """
         if not texts:
             return []
 
-        logger.info(f"Generating embeddings for {len(texts)} text chunks")
+        logger.info(f"Generating embeddings for {len(texts)} text chunks using {self.embedding_provider}")
 
-        # Process in batches to respect API limits
-        batch_size = 96  # Cohere's limit is typically 96 texts per request
-        all_embeddings = []
-
-        for i in range(0, len(texts), batch_size):
-            batch = texts[i:i + batch_size]
-
-            retry_attempts = 3
-            for attempt in range(retry_attempts):
-                try:
-                    response = self.cohere_client.embed(
-                        texts=batch,
-                        model="embed-multilingual-v3.0",  # Using multilingual model for broader coverage
-                        input_type="search_document"
-                    )
-
-                    batch_embeddings = response.embeddings
-                    all_embeddings.extend(batch_embeddings)
-                    logger.debug(f"Completed batch {i//batch_size + 1}/{(len(texts)-1)//batch_size + 1}")
-                    break  # Success, break retry loop
-
-                except Exception as e:
-                    logger.warning(f"Attempt {attempt + 1} failed for batch: {e}")
-                    if attempt == retry_attempts - 1:
-                        raise  # Last attempt failed, re-raise the exception
-                    time.sleep(2 ** attempt)  # Exponential backoff
-
-        logger.info(f"Successfully generated {len(all_embeddings)} embeddings")
-        return all_embeddings
+        try:
+            # Use the embedding service to generate embeddings
+            all_embeddings = self.embedding_service.generate_embeddings(texts)
+            logger.info(f"Successfully generated {len(all_embeddings)} embeddings")
+            return all_embeddings
+        except Exception as e:
+            logger.error(f"Failed to generate embeddings: {e}")
+            raise
 
     def create_collection(self, collection_name: str = "rag_embeddings"):
         """
@@ -335,6 +318,11 @@ def main():
                        help='Overlap between chunks (defaults to CHUNK_OVERLAP env var)')
     parser.add_argument('--collection', type=str, default='rag_embeddings',
                        help='Qdrant collection name')
+    parser.add_argument('--embedding-provider', type=str, default=os.getenv('EMBEDDING_PROVIDER', 'cohere'),
+                       choices=['cohere', 'huggingface'],
+                       help='Embedding provider to use (defaults to EMBEDDING_PROVIDER env var)')
+    parser.add_argument('--hf-model', type=str, default=os.getenv('HF_MODEL_NAME', 'all-MiniLM-L6-v2'),
+                       help='Hugging Face model name to use for embeddings (defaults to HF_MODEL_NAME env var)')
 
     args = parser.parse_args()
 
@@ -344,8 +332,11 @@ def main():
 
     logger.info(f"Starting Docusaurus Embedding Pipeline for: {args.url}")
 
-    # Initialize pipeline
-    pipeline = DocusaurusEmbeddingPipeline()
+    # Initialize pipeline with embedding provider
+    pipeline = DocusaurusEmbeddingPipeline(
+        embedding_provider=args.embedding_provider,
+        hf_model_name=args.hf_model
+    )
 
     try:
         # 1. Create collection

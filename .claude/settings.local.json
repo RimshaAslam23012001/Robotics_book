@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir)",
+      "Bash(dir src)",
+      "Bash(python -c \"from src.rag_agent import main; print\\(''Import successful''\\)\")",
+      "Bash(git add Dockerfile)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Docker build error by correcting Dockerfile paths\n\n- Changed COPY command from ''app ./main'' to ''. .'' to copy all project files\n- Updated CMD to reference correct module path ''src.rag_agent.main:app''\n- This resolves the build error: ''failed to calculate checksum of ref: \"/app\": not found''\n\nEOF\n\\)\")",
+      "Bash(git push origin main)",
+      "Bash(pip install pydantic-settings==2.2.1)",
+      "Bash(python -c \"from pydantic_settings import BaseSettings; print\\(''pydantic_settings import successful''\\)\")",
+      "Bash(python -m pip list)",
+      "Bash(findstr pydantic)",
+      "Bash(where python)",
+      "Bash(.venv\\\\Scripts\\\\activate.bat)",
+      "Bash(python -m pip install pydantic-settings==2.2.1)",
+      "Bash(C:\\\\Users\\\\HP\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe -m pip install pydantic-settings==2.2.1)",
+      "Bash(python3.12 -m pip install pydantic-settings==2.2.1)",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -m pip install pydantic-settings==2.2.1)",
+      "Bash(python -m venv .venv --upgrade-deps)",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -m pip install -r requirements.txt)",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -c \"from pydantic_settings import BaseSettings; print\\(''pydantic_settings import successful''\\)\")",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -c \"from src.rag_agent.config.settings import settings; print\\(''Settings import successful''\\)\")",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -c \"from src.rag_agent.config.settings import settings; print\\(''Settings import successful:'', settings.api_title\\)\")",
+      "Bash(\"C:/Users/HP/AppData/Local/Programs/Python/Python312/python.exe\" -c \"\nfrom src.rag_agent.config.settings import settings\nfrom src.rag_agent.services.agent_service import AgentService\nfrom src.rag_agent.api.query_router import router as query_router\nfrom src.rag_agent.main import app\nprint\\(''Full application import chain successful''\\)\n\")",
+      "Bash(git add requirements.txt src/rag_agent/config/settings.py)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix: Add missing pydantic-settings dependency and fix configuration\n\n- Added pydantic-settings==2.2.1 to requirements.txt to resolve ModuleNotFoundError\n- Updated Settings Config to allow extra environment variables to prevent validation errors\n- These changes fix the application startup issue that was preventing the server from running\n\nEOF\n\\)\")"
+    ]
+  }
+}
