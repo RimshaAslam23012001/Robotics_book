@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add .)"
+      "Bash(git add .)",
+      "Bash(git push origin main)",
+      "Bash(git add .claude/settings.local.json)"
     ]
   }
 }
