@@ -6,7 +6,11 @@
       "Bash(source .venv/Scripts/activate)",
       "Bash(uv run python main.py)",
       "Bash(python -c \"\nimport os\n# Set minimal environment for testing\nos.environ[''COHERE_API_KEY''] = ''test-key''\nos.environ[''QDRANT_URL''] = ''http://localhost:6333''\nfrom main import DocusaurusEmbeddingPipeline\nprint(''Module imported successfully'')\n# Test the text chunking functionality\npipeline = DocusaurusEmbeddingPipeline.__new__(DocusaurusEmbeddingPipeline)  # Create instance without calling __init__\ntext = ''This is a test sentence. Here is another sentence! And a third one? Yes, indeed.''\nchunks = pipeline.chunk_text(text, chunk_size=30, overlap=5)\nprint(f''Chunked {len(text)} chars into {len(chunks)} chunks'')\nfor i, chunk in enumerate(chunks):\n    print(f''Chunk {i}: {len(chunk[\"\"content\"\"])} chars - {chunk[\"\"content\"\"][:50]}...'')\n\")",
-      "Bash(git add .)"
+      "Bash(git add .)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Implement RAG pipeline for Docusaurus content extraction\n\n- Create backend folder and initialize project with uv package\n- Setup Cohere and Qdrant clients for embedding generation and storage\n- Implement functions to fetch, clean, and chunk text from deployed URLs\n- Generate embeddings and upsert into Qdrant with metadata\n- Single file implementation (main.py) with modular functions:\n  * get_all_urls - Discover all accessible Docusaurus URLs\n  * extract_text_from_url - Extract clean text content from URLs\n  * chunk_text - Split content into manageable chunks with overlap\n  * embed - Generate embeddings using Cohere API\n  * create_collection - Create Qdrant collection for storage\n  * save_chunk_to_qdrant - Store embeddings with metadata\n- Add comprehensive error handling and logging\n- Include command-line argument support for configuration\n- Add README with setup and usage instructions\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push origin 001-docusaurus-embedding-pipeline)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json)",
+      "Bash(git rm -rf --cached Rag-backend/rag-chatboat)"
     ],
     "deny": [],
     "ask": []
