@@ -10,7 +10,14 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Implement RAG pipeline for Docusaurus content extraction\n\n- Create backend folder and initialize project with uv package\n- Setup Cohere and Qdrant clients for embedding generation and storage\n- Implement functions to fetch, clean, and chunk text from deployed URLs\n- Generate embeddings and upsert into Qdrant with metadata\n- Single file implementation (main.py) with modular functions:\n  * get_all_urls - Discover all accessible Docusaurus URLs\n  * extract_text_from_url - Extract clean text content from URLs\n  * chunk_text - Split content into manageable chunks with overlap\n  * embed - Generate embeddings using Cohere API\n  * create_collection - Create Qdrant collection for storage\n  * save_chunk_to_qdrant - Store embeddings with metadata\n- Add comprehensive error handling and logging\n- Include command-line argument support for configuration\n- Add README with setup and usage instructions\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push origin 001-docusaurus-embedding-pipeline)",
       "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json)",
-      "Bash(git rm -rf --cached Rag-backend/rag-chatboat)"
+      "Bash(git rm -rf --cached Rag-backend/rag-chatboat)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: Complete RAG implementation with Qdrant integration\n\n- Implement RAG pipeline for Docusaurus content extraction\n- Add Qdrant vector storage and retrieval functionality\n- Create comprehensive test suite for RAG components\n- Move frontend to frontend-book directory\n- Add API contracts and integration tests\n- Include embedding service and retrieval validation\n- Set up agent orchestration for RAG queries\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push -u origin 001-docusaurus-embedding-pipeline)",
+      "Bash(cat Rag-backend/rag-chatboat/pyproject.toml)",
+      "Bash(find Rag-backend/rag-chatboat -name \"pyproject.toml\" -exec cat {} ;)",
+      "Bash(xargs ls -la)",
+      "Bash(git rm --cached -f Rag-backend/rag-chatboat)",
+      "Bash(git add Rag-backend/rag-chatboat/)"
     ],
     "deny": [],
     "ask": []
