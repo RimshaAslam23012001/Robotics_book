@@ -2,6 +2,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from typing import Dict
 from src.rag_agent.api.query_router import router as query_router
 from src.rag_agent.api.status_router import router as status_router
 from src.rag_agent.config.settings import settings
@@ -44,6 +45,24 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(query_router, prefix="/api/v1", tags=["query"])
     app.include_router(status_router, tags=["status"])
+
+    # Add a root endpoint to provide API information
+    @app.get("/")
+    async def root() -> Dict:
+        """
+        Root endpoint providing information about the API
+        """
+        return {
+            "message": "RAG Agent Backend API",
+            "description": settings.api_description,
+            "version": settings.api_version,
+            "endpoints": {
+                "query": "/api/v1/query (POST)",
+                "status": "/status (GET)",
+                "docs": "/docs (GET)",
+                "redoc": "/redoc (GET)"
+            }
+        }
 
     return app
 
