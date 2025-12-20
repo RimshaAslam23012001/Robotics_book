@@ -1,6 +1,6 @@
 FROM python:3.12.10-slim
 
-WORKDIR /main
+WORKDIR /src
 
 COPY requirements.txt .
 
@@ -11,3 +11,4 @@ COPY . .
 EXPOSE 7860
 
 CMD ["uvicorn", "src.rag_agent.main:app", "--host", "0.0.0.0", "--port", "7860"]
+
