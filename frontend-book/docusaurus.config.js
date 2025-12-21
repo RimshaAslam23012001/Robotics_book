@@ -69,10 +69,10 @@ const config = {
         },
         blog: false,
         theme: {
-          customCss: './frontend_book/src/css/custom.css',
+          customCss: './src/css/custom.css',
         },
         pages: {
-          path: './frontend_book/src/pages',
+          path: './src/pages',
         },
       }),
     ],
@@ -92,6 +92,11 @@ const config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: ' BOOK',
+        },
+        {
+          to: '/chat',
+          label: ' CHAT',
+          position: 'left',
         },
         {
           href: 'https://github.com/facebook/docusaurus',
@@ -118,6 +123,15 @@ const config = {
             {
               label: ' About',
               to: '/about',
+            },
+          ],
+        },
+        {
+          title: ' ASSISTANT',
+          items: [
+            {
+              label: ' Chat with AI',
+              to: '/chat',
             },
           ],
         },
@@ -152,7 +166,7 @@ const config = {
   }),
 
   plugins: [
-    './frontend_book/src/plugins/exclude-files-plugin.js'
+    './src/plugins/exclude-files-plugin.js'
   ],
 
 };

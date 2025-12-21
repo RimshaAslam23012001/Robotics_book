@@ -1,0 +1,107 @@
+.floatingChatButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.floatingChatButton.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.floatingChatButton.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chatButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ffe0, #00b3ff);
+  color: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 25px rgba(0, 255, 224, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-shadow: none;
+}
+
+.chatButton:hover {
+  background: linear-gradient(135deg, #00e6cc, #0099e6);
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 255, 224, 0.6);
+}
+
+.chatButton:active {
+  transform: scale(0.95);
+}
+
+.chatIcon {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+  filter: drop-shadow(0 0 5px rgba(0, 255, 224, 0.5));
+}
+
+/* Animation for when button appears */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floatingChatButton:not(.hidden) .chatButton {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .floatingChatButton {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .chatButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .chatIcon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floatingChatButton {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .chatButton {
+    width: 45px;
+    height: 45px;
+  }
+
+  .chatIcon {
+    width: 20px;
+    height: 20px;
+  }
+}

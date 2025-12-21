@@ -1,0 +1,17 @@
+.chatPage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 70vh;
+}
+
+.chatContainer {
+  width: 100%;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .chatContainer {
+    margin: 0 16px;
+  }
+}

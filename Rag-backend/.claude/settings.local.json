@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git add .)",
       "Bash(git push origin main)",
-      "Bash(git add .claude/settings.local.json)"
+      "Bash(git add .claude/settings.local.json)",
+      "Bash(ls -la README*)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(git -C \"E:/Book/Rag-backend/rag-chatboat\" push --force origin main)"
     ]
   }
 }
