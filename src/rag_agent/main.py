@@ -27,19 +27,23 @@ def create_app() -> FastAPI:
     )
 
     # Add security middleware
-    # CORS middleware - restrict origins in production
+    # CORS middleware - allow origins based on configuration
+    # For Hugging Face Spaces deployment, we allow all origins
+    allow_origins_list = ["*"]
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"] if settings.debug else ["http://localhost", "https://localhost"],  # Restrict in production
+        allow_origins=allow_origins_list,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
 
     # Trusted host middleware to prevent HTTP Host header attacks
+    # For Hugging Face Spaces deployment, allow all hosts
     app.add_middleware(
         TrustedHostMiddleware,
-        allowed_hosts=["*"] if settings.debug else ["localhost", "127.0.0.1", settings.api_title.replace(" ", "") + ".com"]
+        allowed_hosts=["*"]
     )
 
     # Include routers

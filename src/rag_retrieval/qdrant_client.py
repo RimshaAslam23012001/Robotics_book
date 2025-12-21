@@ -1,7 +1,7 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from typing import List, Dict, Any, Optional
-from src.config.settings import Settings
+from src.rag_agent.config.settings import settings
 
 
 class QdrantSearchClient:
@@ -16,9 +16,9 @@ class QdrantSearchClient:
             api_key: Qdrant API key. If not provided, uses the one from settings.
             collection_name: Qdrant collection name. If not provided, uses the one from settings.
         """
-        self.url = url or Settings.QDRANT_URL
-        self.api_key = api_key or Settings.QDRANT_API_KEY
-        self.collection_name = collection_name or Settings.QDRANT_COLLECTION_NAME
+        self.url = url or settings.qdrant_url or f"http://{settings.qdrant_host}:{settings.qdrant_port}"
+        self.api_key = api_key or settings.qdrant_api_key
+        self.collection_name = collection_name or settings.qdrant_collection_name
 
         # Initialize Qdrant client
         if self.api_key:

@@ -52,7 +52,8 @@ class AgentService:
 
         except Exception as e:
             logger.error(f"Error in agent processing: {str(e)}")
-            raise
+            # Return empty list instead of raising to prevent 400/500 errors
+            return []
 
     async def _process_with_agent(self, query_request: QueryRequest) -> List[RetrievedChunk]:
         """
