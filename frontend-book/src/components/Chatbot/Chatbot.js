@@ -60,7 +60,7 @@ const Chatbot = () => {
       let botResponseText = '';
       if (data.results && data.results.length > 0) {
         // Combine the content of all retrieved chunks
-        botResponseText = data.results.map(result => result.text || result.content).join('\n\n');
+        botResponseText = data.results.map(result => result.text || result.content || '').join('\n\n');
       } else {
         botResponseText = "I couldn't find any relevant information for your query. The knowledge base might not have content on this topic yet, or there might be an issue with the backend connection. Please try rephrasing your question.";
       }
