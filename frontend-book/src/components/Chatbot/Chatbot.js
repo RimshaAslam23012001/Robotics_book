@@ -19,6 +19,16 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Optional: fetch with timeout
+  const fetchWithTimeout = (url, options = {}, timeout = 15000) => {
+    return Promise.race([
+      fetch(url, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timed out')), timeout)
+      ),
+    ]);
+  };
+
   const sendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -29,26 +39,16 @@ const Chatbot = () => {
     setError(null);
 
     try {
-      // Log the request for debugging
       console.log('Sending request to:', `${BACKEND_URL}/api/v1/query`);
-      console.log('Request payload:', {
-        query: inputValue,
-        top_k: 5,
-      });
+      console.log('Request payload:', { query: inputValue, top_k: 5 });
 
-      const response = await fetch(`${BACKEND_URL}/api/v1/query`, {
+      const response = await fetchWithTimeout(`${BACKEND_URL}/api/v1/query`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: inputValue,
-          top_k: 5,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: inputValue, top_k: 5 }),
       });
 
       console.log('Response status:', response.status);
-      console.log('Response headers:', [...response.headers.entries()]);
 
       if (!response.ok) {
         throw new Error(`Backend error: ${response.status} ${response.statusText}`);
@@ -58,18 +58,20 @@ const Chatbot = () => {
       console.log('Response data:', data);
 
       let botResponseText = '';
-      if (data.results && data.results.length > 0) {
-        // Combine the content of all retrieved chunks
-        botResponseText = data.results.map(result => result.text || result.content || '').join('\n\n');
+      const results = Array.isArray(data.results) ? data.results : [];
+
+      if (results.length > 0) {
+        botResponseText = results.map(r => r.text || r.content || '').join('\n\n');
       } else {
-        botResponseText = "I couldn't find any relevant information for your query. The knowledge base might not have content on this topic yet, or there might be an issue with the backend connection. Please try rephrasing your question.";
+        botResponseText =
+          "I couldn't find any relevant information. Please try rephrasing your question.";
       }
 
       const botMessage = {
         id: Date.now() + 1,
         text: botResponseText,
         sender: 'bot',
-        sources: data.results || [],
+        sources: results,
       };
 
       setMessages(prev => [...prev, botMessage]);
@@ -79,7 +81,7 @@ const Chatbot = () => {
 
       const errorMessage = {
         id: Date.now() + 1,
-        text: 'Sorry, I encountered an error while processing your request. Please try again.',
+        text: err.message || 'Sorry, I encountered an error while processing your request.',
         sender: 'bot',
         error: true,
       };
@@ -120,10 +122,7 @@ const Chatbot = () => {
         )}
 
         {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`${styles.message} ${styles[message.sender]}`}
-          >
+          <div key={message.id} className={`${styles.message} ${styles[message.sender]}`}>
             <div className={styles.messageContent}>
               {message.error ? (
                 <span className={styles.errorText}>{message.text}</span>

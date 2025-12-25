@@ -6,7 +6,25 @@
       "Bash(git add .claude/settings.local.json)",
       "Bash(ls -la README*)",
       "Bash(git rev-parse --git-dir)",
-      "Bash(git -C \"E:/Book/Rag-backend/rag-chatboat\" push --force origin main)"
+      "Bash(git -C \"E:/Book/Rag-backend/rag-chatboat\" push --force origin main)",
+      "Bash(dir /s)",
+      "Bash(dir:*)",
+      "Bash(python -c \"from src.rag_agent.services.agent_service import AgentService; print\\(''AgentService imports successfully''\\)\")",
+      "Bash(python -c \"from src.rag_agent.main import app; print\\(''FastAPI app imports successfully''\\)\")",
+      "Bash(uvicorn src.rag_agent.main:app --host 0.0.0.0 --port 7860 --reload)",
+      "Bash(curl -I http://localhost:7860/docs)",
+      "Bash(curl -X POST http://localhost:7860/api/v1/query -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"test query\"\", \"\"top_k\"\": 3}\")",
+      "Bash(python test_agent.py)",
+      "Bash(del \"rag-chatboat\\\\test_agent.py\")",
+      "Bash(del test_agent.py)",
+      "Bash(timeout 5 curl -I http://localhost:7860/docs)",
+      "Bash(curl -s -D - http://localhost:7860/docs --max-time 10)",
+      "Bash(DEBUG=True python check_settings.py)",
+      "Bash(python -c \"from src.rag_agent.config.settings import settings; print\\(f''DEBUG setting: {settings.debug}''\\); print\\(''Available env vars:''\\); import os; print\\(f''DEBUG from os.environ: {os.environ.get\\(\"\"DEBUG\"\", \"\"NOT SET\"\"\\)}''\\)\")",
+      "Bash(curl -s http://localhost:7860/docs)",
+      "Bash(python test_debug.py)",
+      "Bash(DEBUG=True python -c \"from src.rag_agent.config.settings import Settings; s = Settings\\(\\); print\\(f''DEBUG: {s.debug}''\\)\")",
+      "Bash(python -c \"from src.rag_agent.config.settings import Settings; s = Settings\\(\\); print\\(f''DEBUG: {s.debug}''\\)\")"
     ]
   }
 }
