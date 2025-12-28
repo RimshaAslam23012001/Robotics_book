@@ -1,0 +1,32 @@
+.chapter-features {
+  position: relative;
+}
+
+.chapter-content {
+  padding: 1rem 0;
+}
+
+.chapter-features-loading {
+  padding: 1rem;
+  text-align: center;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Urdu content styling */
+.chapter-content[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+.chapter-content.urdu-content {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chapter-content {
+    padding: 0.5rem 0;
+  }
+}

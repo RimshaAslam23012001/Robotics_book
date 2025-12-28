@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import styles from './index.module.css';
 
 export default function Home() {
@@ -17,46 +18,50 @@ export default function Home() {
 
   return (
     <Layout title={siteConfig.title}>
-      <main className={styles.hero}>
-        <div className={styles.overlay} />
+      <main>
+        <div className={styles.hero}>
+          <div className={styles.overlay} />
 
-        <section className={styles.container}>
-          <div className={styles.centered}>
-            <span className={styles.badge}>
-              PHYSICAL AI · HUMANOID ROBOTICS
-            </span>
+          <section className={styles.container}>
+            <div className={styles.centered}>
+              <span className={styles.badge}>
+                PHYSICAL AI · HUMANOID ROBOTICS
+              </span>
 
-            <h1 className={styles.title}>{siteConfig.title}</h1>
+              <h1 className={styles.title}>{siteConfig.title}</h1>
 
-            <p className={styles.subtitle}>
-              Design, Simulation, Perception, and Intelligent Control Systems
-            </p>
+              <p className={styles.subtitle}>
+                Design, Simulation, Perception, and Intelligent Control Systems
+              </p>
 
-            <div className={styles.actions}>
-              <Link to="/intro" className={styles.primary}>
-                START READING
-              </Link>
+              <div className={styles.actions}>
+                <Link to="/intro" className={styles.primary}>
+                  START READING
+                </Link>
 
-              <button
-                className={styles.secondary}
-                onClick={() => setOpen(!open)}
-                aria-expanded={open}
-              >
-                SYSTEM MODULES
-              </button>
-            </div>
-
-            {open && (
-              <div className={styles.panel}>
-                {modules.map((m) => (
-                  <Link key={m.path} to={m.path} className={styles.item}>
-                    {m.name}
-                  </Link>
-                ))}
+                <button
+                  className={styles.secondary}
+                  onClick={() => setOpen(!open)}
+                  aria-expanded={open}
+                >
+                  SYSTEM MODULES
+                </button>
               </div>
-            )}
-          </div>
-        </section>
+
+              {open && (
+                <div className={styles.panel}>
+                  {modules.map((m) => (
+                    <Link key={m.path} to={m.path} className={styles.item}>
+                      {m.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
+
+        <HomepageFeatures />
       </main>
     </Layout>
   );

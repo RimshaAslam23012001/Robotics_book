@@ -1,0 +1,61 @@
+.global-translation-toggle {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--ifm-navbar-background-color, #2b3137);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.translation-toggle-btn {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: 1px solid var(--ifm-color-primary-dark);
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.translation-toggle-btn:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-darker);
+}
+
+.translation-toggle-btn.urdu-mode {
+  background-color: #d4af37; /* Gold color for Urdu mode */
+  border-color: #b8972d;
+}
+
+.translation-toggle-btn.urdu-mode:hover {
+  background-color: #c09d1f;
+  border-color: #a88524;
+}
+
+/* Apply RTL direction when in Urdu mode */
+body.urdu-mode {
+  direction: rtl;
+}
+
+body.urdu-mode .container,
+body.urdu-mode .markdown,
+body.urdu-mode .docItemContainer {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .global-translation-toggle {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .translation-toggle-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}

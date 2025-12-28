@@ -194,4 +194,71 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   }
 }
 
+/* Translation toggle button styles */
+.translation-toggle-btn {
+  background: linear-gradient(135deg, #d4af37, #b8860b) !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
+  margin-left: 0.5rem !important;
+}
+
+.translation-toggle-btn:hover {
+  background: linear-gradient(135deg, #b8860b, #daa520) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4) !important;
+  color: white !important;
+}
+
+.translation-toggle-btn.translated {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3) !important;
+}
+
+.translation-toggle-btn.translated:hover {
+  background: linear-gradient(135deg, #2E7D32, #4CAF50) !important;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4) !important;
+}
+
+/* Urdu text styling */
+.urdu-text {
+  font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Arial Unicode MS', sans-serif !important;
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Body classes for language modes */
+body.urdu-mode {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Auth button styles */
+.auth-button {
+  background: linear-gradient(135deg, #0077b6, #00a0dc) !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 0 10px rgba(0, 119, 182, 0.3) !important;
+  margin-left: 0.5rem !important;
+}
+
+.auth-button:hover {
+  background: linear-gradient(135deg, #005f8d, #0077b6) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4) !important;
+  color: white !important;
+  text-decoration: none !important;
+}
+
 /* Add any additional custom styles here */

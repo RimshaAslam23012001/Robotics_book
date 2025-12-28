@@ -1,0 +1,103 @@
+.authContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.authButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.authButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #2c3e50;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.authButton:hover {
+  background: #f8f9fa;
+  border-color: #3498db;
+}
+
+.signinButton {
+  background: white;
+  color: #2c3e50;
+}
+
+.signinButton:hover {
+  background: #f8f9fa;
+}
+
+.signupButton {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.signupButton:hover {
+  background: #2980b9;
+  border-color: #2980b9;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userName {
+  font-size: 0.875rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.signoutButton {
+  padding: 0.25rem 0.5rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.signoutButton:hover {
+  background: #c0392b;
+}
+
+.modalContent {
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #7f8c8d;
+  z-index: 1001;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+
+.closeButton:hover {
+  color: #2c3e50;
+}
+
+/* Override default modal styles */
+.react-responsive-modal-modal {
+  border-radius: 8px !important;
+  padding: 0 !important;
+}

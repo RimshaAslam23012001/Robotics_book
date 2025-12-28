@@ -8,8 +8,8 @@ const Chatbot = () => {
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
 
-  // Hugging Face backend URL
-  const BACKEND_URL = 'https://rimsha23-rag-chatboat.hf.space';
+  // Use local backend - configurable based on environment
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -42,9 +42,19 @@ const Chatbot = () => {
       console.log('Sending request to:', `${BACKEND_URL}/api/v1/query`);
       console.log('Request payload:', { query: inputValue, top_k: 5 });
 
+      // Get auth token if available
+      const authToken = localStorage.getItem('auth_token');
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+
+      if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+      }
+
       const response = await fetchWithTimeout(`${BACKEND_URL}/api/v1/query`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: headers,
         body: JSON.stringify({ query: inputValue, top_k: 5 }),
       });
 
@@ -139,7 +149,15 @@ const Chatbot = () => {
                               href={source.metadata?.url || source.url || '#'}
                               target="_blank"
                               rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (source.metadata?.url || source.url) {
+                                  // Only prevent default if we have a valid URL
+                                  return;
+                                } else {
+                                  e.preventDefault();
+                                }
+                              }}
                             >
                               {source.metadata?.title || source.title || 'Source'}
                             </a>

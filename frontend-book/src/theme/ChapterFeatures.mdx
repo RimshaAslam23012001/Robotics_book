@@ -1,0 +1,163 @@
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../components/Auth/AuthContext';
+import ChapterPersonalization from '../components/ChapterPersonalization/ChapterPersonalization';
+import ChapterTranslation from '../components/ChapterTranslation/ChapterTranslation';
+import '../components/ChapterPersonalizationTranslation/ChapterPersonalizationTranslation.css';
+
+const ChapterFeatures = ({ children, chapterId }) => {
+  const { user, loading } = useAuth();
+  const [showPersonalization, setShowPersonalization] = useState(false);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [isUrduMode, setIsUrduMode] = useState(false);
+  const [translatedContent, setTranslatedContent] = useState(null);
+  const [personalizedContent, setPersonalizedContent] = useState(null);
+  const [currentContent, setCurrentContent] = useState(children);
+
+  // Update chapter ID if it changes
+  useEffect(() => {
+    if (chapterId) {
+      // Reset states when chapter changes
+      setTranslatedContent(null);
+      setPersonalizedContent(null);
+      setCurrentContent(children);
+      setIsUrduMode(false);
+    }
+  }, [chapterId, children]);
+
+  // Toggle personalization view
+  const togglePersonalization = () => {
+    if (showPersonalization) {
+      // Revert to original content
+      setCurrentContent(children);
+      setPersonalizedContent(null);
+    } else {
+      // Show personalized content if available, otherwise original
+      if (personalizedContent) {
+        setCurrentContent(personalizedContent);
+      }
+    }
+    setShowPersonalization(!showPersonalization);
+  };
+
+  // Toggle translation view
+  const toggleTranslation = () => {
+    if (showTranslation) {
+      // Revert to original content
+      setCurrentContent(children);
+      setTranslatedContent(null);
+      setIsUrduMode(false);
+    } else {
+      // Show translated content if available, otherwise original
+      if (translatedContent) {
+        setCurrentContent(translatedContent);
+        setIsUrduMode(true);
+      }
+    }
+    setShowTranslation(!showTranslation);
+  };
+
+  // Handle personalization result
+  const handlePersonalize = (content) => {
+    setPersonalizedContent(content);
+    if (showPersonalization) {
+      setCurrentContent(content);
+    }
+  };
+
+  // Handle translation result
+  const handleTranslate = (content) => {
+    setTranslatedContent(content);
+    if (showTranslation) {
+      setCurrentContent(content);
+      setIsUrduMode(true);
+    }
+  };
+
+  // Handle revert to original
+  const handleRevert = () => {
+    setCurrentContent(children);
+    setTranslatedContent(null);
+    setPersonalizedContent(null);
+    setShowPersonalization(false);
+    setShowTranslation(false);
+    setIsUrduMode(false);
+  };
+
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="chapter-features">
+        <div className="chapter-features-loading">Loading...</div>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <div className="chapter-features">
+      {/* Action bar for logged-in users */}
+      {user && (
+        <div className="chapter-features-bar">
+          <div className="chapter-features-actions">
+            <button
+              className={`feature-button ${showPersonalization ? 'active' : ''}`}
+              onClick={togglePersonalization}
+              title="Personalize this chapter based on your background"
+            >
+              {showPersonalization ? 'Original Content' : 'Personalize This Chapter'}
+            </button>
+
+            <button
+              className={`feature-button ${showTranslation ? 'active' : ''} ${isUrduMode ? 'urdu-mode' : ''}`}
+              onClick={toggleTranslation}
+              title="Toggle Urdu translation"
+            >
+              {isUrduMode ? 'English' : 'اردو ترجمہ'}
+            </button>
+
+            {(showPersonalization || showTranslation) && (
+              <button
+                className="feature-button revert-button"
+                onClick={handleRevert}
+                title="Revert to original content"
+              >
+                Revert to Original
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Chapter content */}
+      <div className={`chapter-content ${isUrduMode ? 'urdu-content' : ''}`}>
+        {currentContent}
+      </div>
+
+      {/* Hidden personalization component for API calls */}
+      {user && (
+        <div style={{ display: 'none' }}>
+          <ChapterPersonalization
+            chapterId={chapterId}
+            originalContent={children}
+            authToken={user.token || localStorage.getItem('auth_token')}
+            onPersonalize={handlePersonalize}
+          />
+        </div>
+      )}
+
+      {/* Hidden translation component for API calls */}
+      {user && (
+        <div style={{ display: 'none' }}>
+          <ChapterTranslation
+            chapterId={chapterId}
+            originalContent={children}
+            authToken={user.token || localStorage.getItem('auth_token')}
+            onTranslate={handleTranslate}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ChapterFeatures;
