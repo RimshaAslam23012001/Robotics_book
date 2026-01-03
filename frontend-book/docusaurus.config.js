@@ -7,7 +7,7 @@ const config = {
   tagline: 'A comprehensive guide to robotics, simulation, and AI integration',
   favicon: 'img/favicon.ico',
 
-  url: 'https://your-book.github.io',
+  url: 'https://robotics-book-three.vercel.app/',
   baseUrl: '/',
 
   organizationName: 'your-organization',
